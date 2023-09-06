@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <link href="data:image/x-icon;base64,AAABAAEAEBAAAAEACABoBQAAFgAAACgAAAAQAAAAIAAAAAEACAAAAAAAAAEAAAAAAAAAAAAAAAEAAAAAAADgx/0Az7bvAL2o2AD2+P8A+PX/AIBctAC9m/AA+/X/ANO+7ADn4usA+/j/APv6/AD++fkA1Lf7AKuH4gD/+P8AwKvhAOvZ/QDaxPUAsYrrAPLl/QCjeNoApHDmALiO7gDgx/4AyrPwAOLN9QDh0vIApXzdAH9ZrAD18f0A49P1AOTQ/gD59/QA9/T9AL6j3ACVg6sA+ff9ANK2+QDSvPAA07rzAPv8+gDWv/AA//73AMCh8QDWuvwA2MPzAMah8QDGo+4AyKTxAMat6AC1iuwA3M7wALapwgD26P4A9PD7ALqk1wDPsvcAu53mAJNm0wDl1vYA+Pz7APv8+wD99/4A+/r+ANbF6ADXvPoA1773AO3Z/wCKVsgAiVvFANm/+gCdeNMA7+T8ANvH9wDv7fMAyqX1AN3J9ADeze4A8+v/ALqS6gC6kfAA4876AOTV9ADl0/cA5dL9AP3u/wDRtfgA59n3AOnb/QDr3PcA/v3/AOzf9wDGo/AAnG3gAO7e/QCIXcwA3MjyAO/o9wCfedcA48v7AOPQ+AC7n+UA+fj6ANK58wDVsPwA5tv1APn/9ADTw+QA+vn9APv99wDArtMA1Lr2ANXM2wDWuvYAhVPKAOrd+wDt2P4AxLDZAIhYxwDEsdwA7eb7ANy//ADcwP8A3MjzAMiu7gCLZMcAo3fbAPHs+wDz7f4A48r5ALiP9QDNtO4Az7XxAPf1+wDk2PYA0bb0AOXW+QDSt/cA+vr4ANPB6ADSvPQA6tn5AJl3ygDWw+4A17/0ANXE8QDbvP0A2sP3ALGQ5wDJoPsAtYztAN/E+gDx5/8A8+T/AMuy6QDy6v8A4Mr6APPx+QDPq/gAzbLyAODU/QDQt+8A++3/AOXV9wDRuPIA/vP/AP32/wD7+f8A6dv3AO7R/QDVvvIAwaHtAK2S0wDXtv4ArYrfAP/5/wCwiOIA6+jxAJ9p4ADv4voA3MT7ANzC/gDJpvMA38v1AMuy6gDmv/4AzLHwAH5AygDiyvsA9uz9ANO46gDm1/UA59f1AP7v/QCqkcgA/fX9AJpr1QCulNEA69z7ANfB8wDXvfkA2b78ALGV1ADawvYA2NLnANvF9gDHrOsAspnXAN3M8ADKrvEA8+77AMyz7gDPv+UA5NT2AL6Z6QD49f4A5tf2AOfX9gDTuvEA+vj+AMKf6QD8+/4A1b70AIVVywDYzN8A//7+ANi/9wDZyO4A2b79AMSr6QDw4fkA28f0APLg/wC2kt4A3sr0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANJ0oaX+fR8GReFVKfcQP3mOiuTFRFn6NLRroTZTiW5kAaBXdl7Nd2Kgk6BIC1JrjKoovMxcHCgoDcTZB1Y8yUmGVUEam3KieOD2n5DVF0uvKdImCh3klCwptgKFfalleZBE6sUzHIm2yhmJySMYGzBvH2gwIDWeoqAu1k7jnXJAuWGC/enZuqKg+vSPgt+Yn3x8wHTsFoylAa7zCunPWrquOOXUTqia7hc+IR8WDpTdUrFeYLMjlyYSgqCFv4XBDWiivdxlCTk2bhJbDCc052x4BtteS6lOkPBRsRFYOGItmzrDRvsCcN7SBSSDpjBAcK3s/0KnZvtNPPGV8ywStSwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=" rel="icon" type="image/x-icon" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="preconnect" content="https://www.youtube.com">
+    <meta name="preconnect" content="https://vk.com">
+    <title>{{ page.title }}</title>
+    <link href="https://bootswatch.com/5/slate/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="stylesheet" href="{{ 'assets/css/styles.css' | relative_url }}">
+  </head>
+  <body>
+    {% include navigation.html %}
+    {% include header.html %}
+    <div class="container-md d-flex flex-column-reverse">
+      {{ content }}
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <!--<script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous" async></script>-->
+    <script src="{{ 'assets/js/app.js' | relative_url }}"></script>
+  </body>
+</html>
