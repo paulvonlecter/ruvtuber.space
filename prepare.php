@@ -61,7 +61,10 @@ if(!file_exists(__DIR__.'/vendor/autoload.php')) {
 }
 
 // Папка с данными виртуальных ютуберов
-define('VK_VTUBERS_DIR', __DIR__.'/upload/vtubers');
+define('VTUBERS_DIR', __DIR__.'/upload/vtubers');
+
+if(!is_dir(__DIR__.'/upload')) mkdir(__DIR__.'/upload');
+if(!is_dir(VTUBERS_DIR)) mkdir(VTUBERS_DIR);
 
 // Включение бибилотек
 require_once(__DIR__.'/vendor/autoload.php');
@@ -90,7 +93,7 @@ foreach ($GSDATA as $key => $value) {
     $sth = $db->prepare("INSERT OR IGNORE INTO 'vtubers' (id, name, name_variant, youtube, twitch, vk_group) VALUES (?, ?, ?, ?, ?, ?)");
     $sth->execute($vtuber);
     // Создать папку
-    if(!is_dir(VK_VTUBERS_DIR.'/'.$id)) mkdir(VK_VTUBERS_DIR.'/'.$id);
+    if(!is_dir(VTUBERS_DIR.'/'.$id)) mkdir(VTUBERS_DIR.'/'.$id);
 }
 
 // Подключение клиента
@@ -122,11 +125,11 @@ $youtube = array();
 $vtubers = $db->query('SELECT * FROM vtubers ORDER BY name');
 // Плюнуть JSON в корень
 $vtuber_list = $vtubers->fetchAll(PDO::FETCH_ASSOC);
-file_put_contents(VK_VTUBERS_DIR.'/index.json', json_encode($vtuber_list, JSON_HEX_QUOT | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_NUMERIC_CHECK));
+file_put_contents(VTUBERS_DIR.'/index.json', json_encode($vtuber_list, JSON_HEX_QUOT | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_NUMERIC_CHECK));
 foreach ($vtuber_list as $vtuber_key => $vtuber) {
     echo 'Рассматривается ', $vtuber['name'], PHP_EOL;
     // Определить рабочую папку
-    $vtuber_folder = VK_VTUBERS_DIR.'/'.$vtuber['id'];
+    $vtuber_folder = VTUBERS_DIR.'/'.$vtuber['id'];
     // Выкинуть все пустые значения
     $vtuber = array_filter((array)$vtuber);
     // Сбросить сведения
