@@ -1,0 +1,132 @@
+/* Social Buttons like Bootstrap Social, ... but better */
+.btn-social {
+    transition: all .3s;
+}
+.btn-social.facebook {
+	color: #fff;
+	background: #3b5999;
+}
+.btn-social.facebook:hover {
+	background: #fff;
+	color: #3b5999;
+}
+.btn-social.vk {
+	color: #fff;
+	background: #6186ad;
+}
+.btn-social.vk:hover {
+	background: #fff;
+	color: #6186ad;
+}
+.btn-social.twitter {
+	color: #fff;
+	background: #1da1f2;
+}
+.btn-social.twitter:hover {
+	background: #fff;
+	color: #1da1f2;
+}
+.btn-social.icq {
+	color: #fff;
+	background: #43BF42;
+}
+.btn-social.icq:hover {
+	background: #F8F126;
+	color: #43BF42;
+}
+.btn-social.tumblr {
+	color: #fff;
+	background: #36465d;
+}
+.btn-social.tumblr:hover {
+	background: #fff;
+	color: #36465d;
+}
+.btn-social.telegram {
+	color: #fff;
+	background: #38B0E3;
+}
+.btn-social.telegram:hover {
+	background: #fff;
+	color: #38B0E3;
+}
+.btn-social.skype {
+	color: #fff;
+	background: #00AFF0;
+}
+.btn-social.skype:hover {
+	color: #00AFF0;
+	background: #fff;
+}
+.btn-social.youtube {
+	color: #fff;
+	background: #cd201f;
+}
+.btn-social.youtube:hover {
+	color: #cd201f;
+	background: #fff;
+}
+.btn-social.soundcloud {
+	color: #fff;
+	background: #f50;
+}
+.btn-social.soundcloud:hover {
+	color: #f50;
+	background: #fff;
+}
+.btn-social.mixcloud {
+	color: #fff;
+	background: #314359;
+}
+.btn-social.mixcloud:hover {
+	color: #314359;
+	background: #fff;
+}
+.btn-social.lastfm {
+	color: #fff;
+	background: #b90000;
+}
+.btn-social.lastfm:hover {
+	color: #b90000;
+	background: #fff;
+}
+.btn-social.steam {
+    color: #fff;
+    background: #171a21;
+}
+.btn-social.steam:hover {
+    color: #171a21;
+    background: #fff;
+}
+.btn-social.github {
+    color: #fff;
+    background: #24292e;
+}
+.btn-social.github:hover {
+    color: #24292e;
+    background: #fff;
+}
+.btn-social.linkedin {
+    color: #fff;
+    background: #0084bf;
+}
+.btn-social.linkedin:hover {
+    color: #0084bf;
+    background: #fff;
+}
+.btn-social.musescore {
+    color: rgb(42, 93, 135);
+    background: #F8F2E5;
+}
+.btn-social.musescore:hover {
+    color: #F8F2E5;
+    background: rgb(42, 93, 135);
+}
+.btn-social.twitch {
+    color: #fff;
+    background: #9146ff;
+}
+.btn-social.twitch:hover {
+    color: #9146ff;
+    background: #fff;
+}

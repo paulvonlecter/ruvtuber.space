@@ -90,6 +90,9 @@ $db->exec("CREATE TABLE 'vtubers'
 foreach ($GSDATA as $key => $value) {
     $id = md5($value[0]);
     $vtuber = array_merge(array($id), $value);
+    if(trim($value['youtube']) == '') $value['youtube'] = null;
+    if(trim($value['twitch']) == '') $value['twitch'] = null;
+    if(trim($value['vk_group']) == '') $value['vk_group'] = null;
     $sth = $db->prepare("INSERT OR IGNORE INTO 'vtubers' (id, name, name_variant, youtube, twitch, vk_group) VALUES (?, ?, ?, ?, ?, ?)");
     $sth->execute($vtuber);
     // Создать папку
@@ -152,11 +155,11 @@ foreach ($vtuber_list as $vtuber_key => $vtuber) {
             file_put_contents($group_filename, $group_json);
             // Скачать аватар группы
             if(isset($group['photo_200']))
-                file_put_contents($vtuber_folder.'/vk_photo.jpg', file_get_contents($group['photo_200']));
+                file_put_contents($vtuber_folder.'/vk_icon.jpg', file_get_contents($group['photo_200']));
             elseif(isset($group['photo_100']))
-                file_put_contents($vtuber_folder.'/vk_photo.jpg', file_get_contents($group['photo_100']));
+                file_put_contents($vtuber_folder.'/vk_icon.jpg', file_get_contents($group['photo_100']));
             elseif(isset($group['photo_50']))
-                file_put_contents($vtuber_folder.'/vk_photo.jpg', file_get_contents($group['photo_50']));
+                file_put_contents($vtuber_folder.'/vk_icon.jpg', file_get_contents($group['photo_50']));
             // Скачать обложку группы
             if(isset($group['cover']) && isset($group['cover']['images'])) {
                 $idx = count($group['cover']['images'])-1;
@@ -164,6 +167,7 @@ foreach ($vtuber_list as $vtuber_key => $vtuber) {
             }
             // Очистка памяти
             unset($group, $group_id, $group_filename, $group_json);
+            copy($vtuber_folder.'/vk_icon.jpg', $vtuber_folder.'/main_icon.jpg');
         }
         catch (Exception $e) {
             echo ($e->getMessage()), PHP_EOL;
@@ -183,15 +187,16 @@ foreach ($vtuber_list as $vtuber_key => $vtuber) {
             $channel = json_decode($json);
             // Скачать аватар канала
             if(isset($channel->items[0]->snippet->thumbnails->high))
-                file_put_contents($vtuber_folder.'/youtube_thumbnail.jpg', file_get_contents($channel->items[0]->snippet->thumbnails->high->url));
+                file_put_contents($vtuber_folder.'/youtube_icon.jpg', file_get_contents($channel->items[0]->snippet->thumbnails->high->url));
             elseif(isset($channel->items[0]->snippet->thumbnails->medium))
-                file_put_contents($vtuber_folder.'/youtube_thumbnail.jpg', file_get_contents($channel->items[0]->snippet->thumbnails->medium->url));
+                file_put_contents($vtuber_folder.'/youtube_icon.jpg', file_get_contents($channel->items[0]->snippet->thumbnails->medium->url));
             else
-                file_put_contents($vtuber_folder.'/youtube_thumbnail.jpg', file_get_contents($channel->items[0]->snippet->thumbnails->default->url));
+                file_put_contents($vtuber_folder.'/youtube_icon.jpg', file_get_contents($channel->items[0]->snippet->thumbnails->default->url));
             // Скачать обложку канала
             if(isset($channel->items[0]->brandingSettings->image->bannerExternalUrl))
                 file_put_contents($vtuber_folder.'/youtube_cover.jpg', file_get_contents($channel->items[0]->brandingSettings->image->bannerExternalUrl));
             unset($url, $json, $channel);
+            copy($vtuber_folder.'/youtube_icon.jpg', $vtuber_folder.'/main_icon.jpg');
         } 
         unset($feed_url, $feed);
     }
@@ -217,11 +222,12 @@ foreach ($vtuber_list as $vtuber_key => $vtuber) {
             file_put_contents($vtuber_folder.'/twitch.json', $json);
             // Скачать обложку и аватарку
             if(isset($user->profile_image_url) && !empty($user->profile_image_url)) {
-                file_put_contents($vtuber_folder.'/twitch_avatar.jpg', file_get_contents($user->profile_image_url));
+                file_put_contents($vtuber_folder.'/twitch_icon.jpg', file_get_contents($user->profile_image_url));
             }
             if(isset($user->offline_image_url) && !empty($user->offline_image_url)) {
-                file_put_contents($vtuber_folder.'/twitch_offline.jpg', file_get_contents($user->offline_image_url));
+                file_put_contents($vtuber_folder.'/twitch_cover.jpg', file_get_contents($user->offline_image_url));
             }
         }
+        copy($vtuber_folder.'/twitch_icon.jpg', $vtuber_folder.'/main_icon.jpg');
     }
 }
