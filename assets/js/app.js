@@ -27,8 +27,8 @@ $(document).ready(function (e) {
             `<div class="col">
                 <div class="card mb-3">
                     <div class="row g-0">
-                        <div class="col-md-4 size-hack rounded shadow" style="background-image:url(/upload/vtubers/${element.id}/main_icon.jpg);background-position:center;background-size:cover;">
-                            <img src="/upload/vtubers/${element.id}/main_icon.jpg" class="sr-only" alt="">
+                        <div class="col-md-4 size-hack rounded shadow" style="background-image:url(upload/vtubers/${element.id}/main_icon.jpg);background-position:center;background-size:cover;">
+                            <img src="upload/vtubers/${element.id}/main_icon.jpg" class="sr-only" alt="">
                         </div>
                         <div class="col-md-8">
                             <div class="card-body">
