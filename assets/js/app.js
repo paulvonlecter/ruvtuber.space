@@ -1,6 +1,6 @@
 // Настройки лицевой части
 let settings = {
-    vtuberIndex: '/upload/vtubers/index.json',
+    vtuberIndex: 'upload/vtubers/index.json',
     vtubers: []
 };
 
