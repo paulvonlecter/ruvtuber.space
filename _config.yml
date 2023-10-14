@@ -1,10 +1,10 @@
 title:       "RUVTuber Space"
 header_title: "Пространство русскоговорящих виртуальных ютуберов"
 description: "Веб-сайт открытых данных о русскоговорящих виртуальных ютуберах"
-baseurl:     ""
-url:         "https://ruvtuber.space"
+baseurl:     "/ruvtuber.space"
+url:         "https://paulvonlecter.github.io"
 date_format: "%-d.%m.%Y"
 encoding: utf-8
-exclude: ["Gemfile", "Gemfile.lock", "node_modules", "vendor/bundle/", "vendor/cache/", "vendor/gems/", "vendor/ruby/", ".gitignore", "composer.json", "composer.lock", "prepare.php", "LICENSE", "README.md", "_scripts/", "_json/"]
+exclude: ["Gemfile", "Gemfile.lock", "node_modules", "vendor/", "vendor/bundle/", "vendor/cache/", "vendor/gems/", "vendor/ruby/", ".gitignore", "composer.json", "composer.lock", "prepare.php", "LICENSE", "README.md", "_scripts/", "_json/"]
 timezone: "Europe/Moscow"
-permalink: /:year/:month/:day/:categories/:title/
+permalink: /:slugified_categories/:year/:month/:day/:title:output_ext
