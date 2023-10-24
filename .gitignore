@@ -9,3 +9,4 @@ composer.phar
 vendor/
 vtubers/*
 !vtubers/index.html
+/_data/vtubers.json
