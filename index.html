@@ -10,75 +10,65 @@ title: "RUVTuber Space"
         <p class="lead">{{ site.description }}</p>
     </div>
 </header>
-<main class="container">
-    <div class="row">
-        <div class="col-12">
-            <p class="lead">Приветствуем на ресурсе, посвященному систематизации открытых данных о русскоговорящих виртуальных ютуберах.</p>
-            <p>В настоящий момент ресурс находится в альфа-тесте, поэтому треугольный потолок и косые стены - это временная норма.</p>
+<main>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <p class="lead">Приветствуем на ресурсе проекта, посвященному систематизации открытых данных о русскоговорящих виртуальных ютуберах,<br>
+                    а также компьютерному сопровождению деятельности сообщества в&nbsp;информационных, инструментальных и&nbsp;маркетинговых аспектах.</p>
+                <p>В настоящий момент ресурс находится в альфа-тесте, поэтому треугольный потолок и косые стены - это временная норма.</p>
+                <p>Источником вдохновения для&nbsp;разработки стала легендарная таблица рувтуберов новостного проекта <a href="https://vk.com/vspace_vk" target="_blank">VSpace [Virtual Youtubers]</a>, а&nbsp;также множество качественных миров в&nbsp;VRChat, посвященных виртуальным ютуберам и&nbsp;фандомам.</p>
+                <p>Проект является открытым, но&nbsp;следует негласным правилам, установленным в&nbsp;нашем сообществе о&nbsp;внешнего виде, характере контента и&nbsp;этических нормах поведения.</p>
+                <p>На&nbsp;текущий момент ресурс находится <em>в&nbsp;самой ранней стадии</em> разработки. По&nbsp;этой причине на&nbsp;нем может не&nbsp;хватать определенных данных, а&nbsp;страницы могут выглядеть не&nbsp;так красиво, как хотелось&nbsp;бы.</p>
+                <p>Источником сведений о&nbsp;русскоговорящих виртуальных ютуберах послужила таблица данных, которую собирала <a href="https://vk.com/beckyschwarz" target="_blank">Becky Schwartz</a> для&nbsp;своей <a href="https://vk.com/ruvtubersbs" target="_blank">группы новостей</a>, за&nbsp;что&nbsp;автор выражает безмерную признательность и&nbsp;благодарность.</p>
+                <p>Код проекта размещается на&nbsp;GitHub: <a href="https://github.com/paulvonlecter/ruvtuber.space" target="_blank">https://github.com/paulvonlecter/ruvtuber.space</a>.</p>
+                <p>Разработчик ресурса уверен в&nbsp;том, что совместными усилиями сообщества можно сделать замечательные общественно-значимые вещи и&nbsp;что данный проект&nbsp;&mdash; тому подтверждение.</p>
+            </div>
         </div>
     </div>
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3" id="vtuber-catalogue"></div>
+    <div class="my-5 py-5 text-bg-success">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h2 class="display-1 my-3">Сопровождение</h2>
+                </div>
+                <div class="col-md-6">
+                    <p>Раздел в разработке.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 order-md-2">
+                <h2 class="display-1 my-3">Проекты</h2>
+            </div>
+            <div class="col-md-6 order-md-1">
+                <p>Раздел в разработке.</p>
+            </div>
+        </div>
+    </div>
+    <div class="my-5 py-5 text-bg-secondary">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h2 class="display-1 my-3">Рекомендации</h2>
+                </div>
+                <div class="col-md-6">
+                    <p>Раздел в разработке.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 order-md-2">
+                <h2 class="display-1 my-3">В этом разделе тоже что-то пишут</h2>
+            </div>
+            <div class="col-md-6 order-md-1">
+                <p>Раздел в разработке.</p>
+            </div>
+        </div>
+    </div>
 </main>
 {% include scripts.html %}
-<script>
-// Настройки лицевой части
-let settings = {
-    vtuberIndex: 'upload/vtubers/index.json',
-    vtubers: []
-};
-// При загрузке документа
-$(document).ready(function (e) {
-    // Получить список втуберов
-    fetch(settings.vtuberIndex)
-    .then(response => response.json())
-    .then(vtubers => {
-        settings.vtubers = vtubers;
-        console.log(settings.vtubers);
-    })
-    .then(() => {
-        // Отрисовать каталог
-        settings.vtubers.forEach(element => {
-            console.log(element);
-            let $buttons = $('<div class="d-inline-block">');
-            if (element.vk)
-                $('<a class="btn btn-social vk">')
-                    .attr('href', element.vk.url)
-                    .attr('title', element.vk.name)
-                    .html('<i class="fa fa-vk"></i>')
-                    .appendTo($buttons);
-            if (element.twitch)
-                $('<a class="btn btn-social twitch">')
-                    .attr('href', element.twitch.url)
-                    .attr('title', element.twitch.name)
-                    .html('<i class="fa fa-twitch"></i>')
-                    .appendTo($buttons);
-            if (element.youtube)
-                $('<a class="btn btn-social youtube">')
-                    .attr('href', element.youtube.url)
-                    .attr('title', element.youtube.name)
-                    .html('<i class="fa fa-youtube"></i>')
-                    .appendTo($buttons);
-            let buttonsHtml = $buttons.html();
-            // Отрисовать карточки
-            let cardHtml = 
-            `<div class="col">
-                <div class="card mb-3">
-                    <div class="row g-0">
-                        <div class="col-md-4 size-hack rounded shadow" style="background-image:url(upload/vtubers/${element.id}/main_icon.jpg);background-position:center;background-size:cover;">
-                            <img src="upload/vtubers/${element.id}/main_icon.jpg" class="sr-only" alt="">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <h5 class="card-title">${element.name}</h5>
-                                <p class="card-text" id="${element.id}-desc"></p>
-                                ${buttonsHtml}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>`;
-            $(cardHtml).appendTo('#vtuber-catalogue');
-        });
-    });
-});
-</script>

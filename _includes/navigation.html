@@ -8,7 +8,7 @@
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           {% for item in site.data.navigation %}
           <li class="nav-item">
-            <a href="{{ item.link | relative url }}" class="nav-link{% if page.url == item.link %} active {% endif %}">
+            <a href="{{ site.baseurl }}{{ item.link | relative url }}" class="nav-link{% if page.url == item.link %} active {% endif %}">
               {{ item.name }}
             </a>
           </li>

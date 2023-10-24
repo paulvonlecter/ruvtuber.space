@@ -1,0 +1,29 @@
+---
+layout: default
+title: "Русскоговорящие виртуальные ютуберы"
+---
+{% include navigation.html %}
+<header class="text-bg-secondary py-5 mb-5">
+    <div class="container text-center">
+        <h1>{{ page.title }}</h1>
+    </div>
+</header>
+<main class="container">
+    <div class="row mb-5">
+        <div class="col-12">
+            <div class="card text-bg-warning">
+                <div class="card-body">
+                    <h2 class="card-title">Внимание!</h2>
+                    <p class="card-text">Нынешняя база содержит данные, собранные в своё время Бекки Шварц.
+                        Данные собирались около полутора лет назад, по этой причине некоторые рувтуберы могут себя не увидеть в списке.</p>
+                    <p class="card-text">Форма для добавления данных будет размещена позже.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 row-cols-xl-6 row-cols-xxl-8" id="vtuber-catalogue">
+    {%- for item in site.data.vtubers -%}
+    {%- include vtuber_card.html item=item -%}
+    {%- endfor -%}
+    </div>
+</main>

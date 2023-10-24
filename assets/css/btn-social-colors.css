@@ -6,7 +6,8 @@
 	color: #fff;
 	background: #3b5999;
 }
-.btn-social.facebook:hover {
+.btn-social.facebook:hover,
+.btn-social.facebook.active {
 	background: #fff;
 	color: #3b5999;
 }
@@ -14,7 +15,8 @@
 	color: #fff;
 	background: #6186ad;
 }
-.btn-social.vk:hover {
+.btn-social.vk:hover,
+.btn-social.vk.active {
 	background: #fff;
 	color: #6186ad;
 }
@@ -22,7 +24,8 @@
 	color: #fff;
 	background: #1da1f2;
 }
-.btn-social.twitter:hover {
+.btn-social.twitter:hover,
+.btn-social.twitter.active {
 	background: #fff;
 	color: #1da1f2;
 }
@@ -62,7 +65,8 @@
 	color: #fff;
 	background: #cd201f;
 }
-.btn-social.youtube:hover {
+.btn-social.youtube:hover,
+.btn-social.youtube.active {
 	color: #cd201f;
 	background: #fff;
 }
@@ -126,7 +130,8 @@
     color: #fff;
     background: #9146ff;
 }
-.btn-social.twitch:hover {
+.btn-social.twitch:hover,
+.btn-social.twitch.active {
     color: #9146ff;
     background: #fff;
 }

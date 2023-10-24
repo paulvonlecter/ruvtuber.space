@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    {% include meta.html %}
+    {% include styles.html %}
+    <title>{{ page.vtuber_name }} | {{ site.name }}</title>
+  </head>
+  <body>
+    {%- include navigation.html -%}
+    <main class="container">
+      <div class="row">
+        <div class="col-md-3">
+          <div class="card w-100">
+            <img src="main_icon.jpg" alt="{{ page.vtuber_name }}" class="card-img-top">
+            <div class="card-body">
+              <h5 class="card-title m-0 text-center">{{ page.vtuber_name }}</h5>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-9">
+          <div class="card">
+            <div class="card-header">
+              <ul class="nav nav-pills nav-fill card-header-pills" role="tablist" id="vtuber-tab-list">
+                {%- if page.vk -%}
+                <li class="nav-item">
+                  <button class="nav-link btn-social vk border" data-bs-toggle="tab" data-bs-target="#vk-pane">
+                    <i class="fa fa-vk"></i>
+                    {{ page.vk.name }}
+                  </button>
+                </li>
+                {%- endif -%}
+                {%- if page.twitch -%}
+                <li class="nav-item">
+                  <button class="nav-link btn-social twitch border" data-bs-toggle="tab" data-bs-target="#twitch-pane">
+                    <i class="fa fa-twitch"></i>
+                    {{ page.twitch.name }}
+                  </button>
+                </li>
+                {%- endif -%}
+                {%- if page.youtube -%}
+                <li class="nav-item">
+                  <button class="nav-link btn-social youtube border" data-bs-toggle="tab" data-bs-target="#youtube-pane">
+                    <i class="fa fa-youtube"></i>
+                    {{ page.youtube.name }}
+                  </button>
+                </li>
+                {%- endif -%}
+              </ul>
+            </div>
+            <div class="tab-content" id="vtuber-tab-content">
+              {%- if page.vk -%}
+              <div class="card-body tab-pane fade" id="vk-pane" role="tabpanel">
+                <h5 class="card-title">{{ page.vk.name }}</h5>
+                <p class="card-text">{{ page.vk.description }}</p>
+                <a href="{{ page.vk.url }}" class="btn btn-outline-secondary">
+                  <i class="fa fa-vk"></i>
+                  Подробнее&nbsp;&rarr;
+                </a>
+              </div>
+              {%- endif -%}
+              {%- if page.twitch -%}
+              <div class="card-body tab-pane fade" id="twitch-pane" role="tabpanel">
+                <h5 class="card-title">{{ page.twitch.name }}</h5>
+                <p class="card-text">{{ page.twitch.description }}</p>
+                <a href="{{ page.twitch.url }}" class="btn btn-outline-secondary">
+                  <i class="fa fa-twitch"></i>
+                  Подробнее&nbsp;&rarr;
+                </a>
+              </div>
+              {%- endif -%}
+              {%- if page.youtube -%}
+              <div class="card-body tab-pane fade" id="youtube-pane" role="tabpanel">
+                <h5 class="card-title">{{ page.youtube.name }}</h5>
+                <p class="card-text">{{ page.youtube.description }}</p>
+                <a href="{{ page.youtube.url }}" class="btn btn-outline-secondary">
+                  <i class="fa fa-youtube"></i>
+                  Подробнее&nbsp;&rarr;
+                </a>
+              </div>
+              {%- endif -%}
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    {% include scripts.html %}
+    {% include footer.html %}
+    <script>
+      $($('#vtuber-tab-list').children()[0]).children().addClass('active');
+      $($('#vtuber-tab-content').children()[0]).addClass('show active');
+    </script>
+  </body>
+</html>

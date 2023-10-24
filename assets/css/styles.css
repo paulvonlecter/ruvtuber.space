@@ -20,3 +20,6 @@
 .size-16x10:before, .size-8x5:before { padding-top: calc(10 / 16 * 100%); }
 .size-4x3:before { padding-top: calc(3 / 4 * 100%); }
 .size-7x5:before { padding-top: calc(5 / 7 * 100%); }
+
+.vtuber-card .card-img-overlay { background-image: linear-gradient(180deg, black, rgba(0,0,0,.5) 20%, transparent 50%); }
+.vtuber-card h5 { text-shadow:0 0 1em black; }

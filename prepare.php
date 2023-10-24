@@ -1,27 +1,29 @@
 <?php
 /**
- * Сборщик открытых данных для главной страницы RUVTuber Space
+ * Сборщик открытых данных для RUVTuber Space
+ * @author Paul von Lecter <paul@paulvonlecter.name>
  */
-
-// Определения всяких функций
-
-
 
 // Установка временной зоны
 date_default_timezone_set('Europe/Moscow');
 
-// Определить константы
-define('VK_CLIENT_ID', getenv('VK_CLIENT_ID'));
-if(getenv('VK_TOKEN')) {
-    define('VK_ACCESS_TOKEN', getenv('VK_TOKEN'));
-} else {
-    define('VK_ACCESS_TOKEN', getenv('VK_SERVICE_TOKEN'));
-}
-define('GS_URL', getenv('GS_URL'));
-define('YT_API_KEY', getenv('YT_API_KEY'));
+// Настройка окружения
+if(getenv('GS_URL'))                define('GS_URL', getenv('GS_URL'));
+if(getenv('VK_CLIENT_ID'))          define('VK_CLIENT_ID', getenv('VK_CLIENT_ID'));
+if(getenv('VK_SERVICE_TOKEN'))      define('VK_ACCESS_TOKEN', getenv('VK_SERVICE_TOKEN'));
+if(getenv('TWITCH_CLIENT_ID'))      define('TWITCH_CLIENT_ID', getenv('TWITCH_CLIENT_ID'));
+if(getenv('TWITCH_CLIENT_SECRET'))  define('TWITCH_CLIENT_SECRET', getenv('TWITCH_CLIENT_SECRET'));
+if(getenv('YT_API_KEY'))            define('YT_API_KEY', getenv('YT_API_KEY'));
 
 // Проверка на целостность окружения
-if(!VK_ACCESS_TOKEN && !VK_CLIENT_ID && !GS_URL) {
+if(
+    !defined('GS_URL')
+    && !defined('VK_CLIENT_ID')
+    && !defined('VK_ACCESS_TOKEN')
+    && !defined('TWITCH_CLIENT_ID')
+    && !defined('TWITCH_CLIENT_SECRET')
+    && !defined('YT_API_KEY')
+) {
     echo 'Некорректно настроено окружение', PHP_EOL;
     exit(1);
 }
@@ -32,10 +34,8 @@ if(!file_exists(__DIR__.'/vendor/autoload.php')) {
     exit(1);
 }
 
-// Папка с данными виртуальных ютуберов
-define('VTUBERS_DIR', __DIR__.'/upload/vtubers');
-
-if(!is_dir(__DIR__.'/upload')) mkdir(__DIR__.'/upload');
+// Определение папки с данными виртуальных ютуберов
+define('VTUBERS_DIR', __DIR__.'/vtubers');
 if(!is_dir(VTUBERS_DIR)) mkdir(VTUBERS_DIR);
 
 // Включение бибилотек
@@ -46,9 +46,9 @@ $vk = new VK\Client\VKApiClient();
 function twitchToken($client_id, $client_secret) {
     $ch = curl_init('https://id.twitch.tv/oauth2/token');
     $data = array(
-    "client_secret" => $client_secret,
-    "client_id" => $client_id,
-    "grant_type" => "client_credentials"
+        "client_secret" => $client_secret,
+        "client_id" => $client_id,
+        "grant_type" => "client_credentials"
     );
     curl_setopt($ch, CURLOPT_POST, true);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -58,7 +58,7 @@ function twitchToken($client_id, $client_secret) {
     $ret = json_decode($json);
     return $ret->access_token;
 }
-define('TWITCH_TOKEN', twitchToken(getenv('TWITCH_CLIENT_ID'), getenv('TWITCH_CLIENT_SECRET')));
+define('TWITCH_TOKEN', twitchToken(TWITCH_CLIENT_ID, TWITCH_CLIENT_SECRET));
 
 /**
  * Cведения о канале
@@ -257,7 +257,7 @@ class ChannelInfo {
 }
 
 // Получение данных из Google Spreadsheets
-// name, name_variant, youtube, twitch, vk_group
+// name, name_variant, youtube, twitch, vk_group, vkplaylive, trovo, prefered_platform
 $GSDATA = json_decode(file_get_contents(GS_URL));
 
 $vtuberCollection = [];
@@ -278,25 +278,57 @@ foreach ($GSDATA as $value) {
     if(trim($value[2]) != '') $vtuber->youtube = new ChannelInfo($vtuber->id, $value[2], 'youtube');
     if(trim($value[3]) != '') $vtuber->twitch = new ChannelInfo($vtuber->id, $value[3], 'twitch');
     if(trim($value[4]) != '') $vtuber->vk = new ChannelInfo($vtuber->id, $value[4], 'vk');
+    // Дополнительная проверка описаний, потому что Jekyll не любит юникод
+    if(isset($vtuber->twitch))
+        $vtuber->twitch->description = @htmlentities($vtuber->twitch->description, ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML5, 'UTF-8', false);
+    if(isset($vtuber->youtube))
+        $vtuber->youtube->description = @htmlentities($vtuber->youtube->description, ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML5, 'UTF-8', false);
+    if(isset($vtuber->vk))
+        $vtuber->vk->description = @htmlentities($vtuber->vk->description, ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML5, 'UTF-8', false);
     // Если никаких социалок нет, то до свидания
     if (
-        !isset($vtuber->youtube) && !isset($vtuber->twitch) && !isset($vtuber->vk)
+        !isset($vtuber->youtube)
+        && !isset($vtuber->twitch)
+        && !isset($vtuber->vk)
     ) continue;
     // Выбор главной картинки
-    if (isset($vtuber->youtube->icon)) copy("$vtuber_folder/youtube_icon.jpg", "$vtuber_folder/main_icon.jpg");
-    elseif (isset($vtuber->twitch->icon)) copy("$vtuber_folder/twitch_icon.jpg", "$vtuber_folder/main_icon.jpg");
-    elseif (isset($vtuber->vk->icon)) copy("$vtuber_folder/vk_icon.jpg", "$vtuber_folder/main_icon.jpg");
-    // Выбор главной обложки
-    if (isset($vtuber->youtube->cover)) copy("$vtuber_folder/youtube_cover.jpg", "$vtuber_folder/main_cover.jpg");
-    elseif (isset($vtuber->twitch->cover)) copy("$vtuber_folder/twitch_cover.jpg", "$vtuber_folder/main_cover.jpg");
-    elseif (isset($vtuber->vk->cover)) copy("$vtuber_folder/vk_cover.jpg", "$vtuber_folder/main_cover.jpg");
+    if(isset($value[7]) && !empty($value[7])) {
+        copy("$vtuber_folder/{$value[7]}_icon.jpg", "$vtuber_folder/main_icon.jpg");
+    } else {
+        if (isset($vtuber->youtube->icon)) copy("$vtuber_folder/youtube_icon.jpg", "$vtuber_folder/main_icon.jpg");
+        elseif (isset($vtuber->twitch->icon)) copy("$vtuber_folder/twitch_icon.jpg", "$vtuber_folder/main_icon.jpg");
+        elseif (isset($vtuber->vk->icon)) copy("$vtuber_folder/vk_icon.jpg", "$vtuber_folder/main_icon.jpg");
+    }
+    // $vtuber_folder
+    $profile_html = '---'.PHP_EOL;
+    $profile_html .= 'layout: profile'.PHP_EOL;
+    $profile_html .= 'vtuber_id: '.$vtuber->id.PHP_EOL;
+    $profile_html .= 'vtuber_name: '.$vtuber->name.PHP_EOL;
+    if(isset($vtuber->vk))
+        $profile_html .='vk:'.PHP_EOL.
+                        '  name: "'.htmlentities($vtuber->vk->name, ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML5, 'UTF-8', false).'"'.PHP_EOL.
+                        '  url: '.$vtuber->vk->url.PHP_EOL.
+                        '  description: "'.$vtuber->vk->description.'"'.PHP_EOL;
+    if(isset($vtuber->twitch))
+        $profile_html .='twitch:'.PHP_EOL.
+                        '  name: "'.$vtuber->twitch->name.'"'.PHP_EOL.
+                        '  url: '.$vtuber->twitch->url.PHP_EOL.
+                        '  description: "'.$vtuber->twitch->description.'"'.PHP_EOL;
+    if(isset($vtuber->youtube))
+        $profile_html .='youtube:'.PHP_EOL.
+                        '  name: "'.htmlentities($vtuber->youtube->name, ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML5, 'UTF-8', false).'"'.PHP_EOL.
+                        '  url: '.$vtuber->youtube->url.PHP_EOL.
+                        '  description: "'.$vtuber->youtube->description.'"'.PHP_EOL;
+    $profile_html .= '---'.PHP_EOL;
+    file_put_contents($vtuber_folder.'/index.md', $profile_html);
     // Собрать в коллекцию
     $vtuberCollection[] = $vtuber;
 }
 
 // Сбросить данные
 echo 'Сохранение данных...', PHP_EOL;
-file_put_contents(VTUBERS_DIR.'/index.json', json_encode($vtuberCollection, JSON_HEX_QUOT | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_NUMERIC_CHECK));
+file_put_contents(VTUBERS_DIR.'/index.json', json_encode($vtuberCollection, JSON_HEX_QUOT | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_NUMERIC_CHECK | JSON_UNESCAPED_UNICODE));
+copy(VTUBERS_DIR.'/index.json', __DIR__.'/_data/vtubers.json');
 
 // Омагад да это же база данных в оперативной памяти мухахаха
 /*$db = new PDO('sqlite::memory:');

@@ -7,5 +7,5 @@ autoload.php
 composer.lock
 composer.phar
 vendor/
-_json/news/*.json
-upload/vtubers/
+vtubers/*
+!vtubers/index.html
